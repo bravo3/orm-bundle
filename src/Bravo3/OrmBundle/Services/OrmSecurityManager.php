@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class OrmSecurityManager
@@ -24,7 +25,9 @@ class OrmSecurityManager
     protected $encoder_factory;
 
     /**
-     * @var TokenStorageInterface
+     * On Symfony 2.6+ this will be a TokenStorageInterface, on Symfony <= 2.5, this will be the SecurityContext
+     *
+     * @var TokenStorageInterface|SecurityContext
      */
     protected $token_storage;
 
@@ -41,14 +44,14 @@ class OrmSecurityManager
     public function __construct(
         OrmUserProvider $user_provider,
         EncoderFactory $encoder_factory,
-        TokenStorageInterface $token_storage,
         $event_dispatcher,
+        $token_storage,
         $provider_key
     ) {
         $this->user_provider    = $user_provider;
         $this->encoder_factory  = $encoder_factory;
-        $this->token_storage    = $token_storage;
         $this->event_dispatcher = $event_dispatcher;
+        $this->token_storage    = $token_storage;
         $this->provider_key     = $provider_key;
     }
 

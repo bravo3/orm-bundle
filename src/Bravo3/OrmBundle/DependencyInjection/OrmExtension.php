@@ -6,12 +6,8 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\Kernel;
 
-/**
- * This is the class that loads and manages your bundle configuration
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
- */
 class OrmExtension extends Extension
 {
     /**
@@ -38,6 +34,7 @@ class OrmExtension extends Extension
                   ->addArgument($config['user_roles']);
 
         $container->getDefinition('orm.security_manager')
+                  ->addArgument((int)Kernel::MINOR_VERSION < 6 ? '@security_context' : '@security.token_storage')
                   ->addArgument($config['auth_firewall']);
 
         $container->getDefinition('orm.session_handler')

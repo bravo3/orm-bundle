@@ -10,7 +10,7 @@ services:
         arguments: [@orm.em, @security.encoder_factory]
     orm.security_manager:
         class: Bravo3\OrmBundle\Services\OrmSecurityManager
-        arguments: [@orm.user_provider, @security.encoder_factory, @security.token_storage, @event_dispatcher]
+        arguments: [@orm.user_provider, @security.encoder_factory, @event_dispatcher]
     orm.session_handler:
         class: Bravo3\OrmBundle\Session\OrmSessionHandler
         arguments: [@orm.em]
