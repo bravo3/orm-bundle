@@ -3,7 +3,6 @@ services:
         class: Bravo3\Orm\Drivers\Redis\RedisDriver
     orm.em:
         class: Bravo3\Orm\Services\EntityManager
-        factory: [Bravo3\OrmBundle\Services\Factories\OrmFactory, createEntityManager]
         arguments: [@orm.driver, %kernel.cache_dir%]
     orm.user_provider:
         class: Bravo3\OrmBundle\Services\OrmUserProvider

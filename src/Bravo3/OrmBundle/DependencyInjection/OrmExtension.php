@@ -26,6 +26,13 @@ class OrmExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+        $em = $container->getDefinition('orm.em');
+        if ((int)Kernel::MINOR_VERSION < 6) {
+            $em->setFactoryClass('Bravo3\OrmBundle\Services\Factories\OrmFactory')->setFactoryMethod('createEntityManager');
+        } else {
+            $em->setFactory(['Bravo3\OrmBundle\Services\Factories\OrmFactory', 'createEntityManager']);
+        }
+
         $container->getDefinition('orm.driver')
                   ->addArgument($config['params']);
 
