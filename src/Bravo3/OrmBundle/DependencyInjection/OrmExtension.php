@@ -10,6 +10,9 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class OrmExtension extends Extension
 {
+    const ORM_FACT_CLASS  = 'Bravo3\OrmBundle\Services\Factories\OrmFactory';
+    const ORM_FACT_METHOD = 'createEntityManager';
+
     /**
      * @var callable
      */
@@ -28,9 +31,9 @@ class OrmExtension extends Extension
 
         $em = $container->getDefinition('orm.em');
         if ((int)Kernel::MINOR_VERSION < 6) {
-            $em->setFactoryClass('Bravo3\OrmBundle\Services\Factories\OrmFactory')->setFactoryMethod('createEntityManager');
+            $em->setFactoryClass(self::ORM_FACT_CLASS)->setFactoryMethod(self::ORM_FACT_METHOD);
         } else {
-            $em->setFactory(['Bravo3\OrmBundle\Services\Factories\OrmFactory', 'createEntityManager']);
+            $em->setFactory([self::ORM_FACT_CLASS, self::ORM_FACT_METHOD]);
         }
 
         $container->getDefinition('orm.driver')
