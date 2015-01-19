@@ -115,3 +115,16 @@ create security tokens for you and log users in and out. When it creates the tok
 the full user entity. This makes your session a lot less cumbersome and does not require a second autoloader.
 
 To test credentials, get the token, user object or to login/logout a user, use the `orm.security_manager` service.
+
+User Commands
+-------------
+Console commands are included to create & delete users, along with change their password and roles. These commands are
+registered in the 'user:' namespace. 
+
+    app/console user:create
+    
+The list of user roles the commands offer you is configurable in the orm.user_roles configuration:
+
+    orm:
+        user_roles: [ ROLE_USER, ROLE_AWESOME ]
+        
