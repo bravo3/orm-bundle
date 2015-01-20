@@ -5,6 +5,7 @@ namespace Bravo3\OrmBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -44,7 +45,11 @@ class OrmExtension extends Extension
                   ->addArgument($config['user_roles']);
 
         $container->getDefinition('orm.security_manager')
-                  ->addArgument((int)Kernel::MINOR_VERSION < 6 ? '@security_context' : '@security.token_storage')
+                  ->addArgument(
+                      (int)Kernel::MINOR_VERSION < 6 ? new Reference('security_context') : new Reference(
+                          'security.token_storage'
+                      )
+                  )
                   ->addArgument($config['auth_firewall']);
 
         $container->getDefinition('orm.session_handler')
