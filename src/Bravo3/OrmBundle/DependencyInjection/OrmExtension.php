@@ -46,7 +46,7 @@ class OrmExtension extends Extension
 
         $container->getDefinition('orm.security_manager')
                   ->addArgument(
-                      (int)Kernel::MINOR_VERSION < 6 ? new Reference('security_context') : new Reference(
+                      (int)Kernel::MINOR_VERSION < 6 ? new Reference('security.context') : new Reference(
                           'security.token_storage'
                       )
                   )
