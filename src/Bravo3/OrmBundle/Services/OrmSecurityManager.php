@@ -96,6 +96,27 @@ class OrmSecurityManager
     }
 
     /**
+     * Check if the user is authenticated and has a given role
+     *
+     * @param string $role_name
+     * @return bool
+     */
+    public function hasAuthenticatedRole($role_name)
+    {
+        if (!$this->isAuthenticated()) {
+            return false;
+        }
+
+        foreach ($this->getToken()->getRoles() as $role) {
+            if ($role->getRole() == $role_name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Get a user by username
      *
      * @param $username
