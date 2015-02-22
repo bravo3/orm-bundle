@@ -38,7 +38,8 @@ class OrmExtension extends Extension
         }
 
         $container->getDefinition('orm.driver')
-                  ->addArgument($config['params']);
+                  ->addArgument($config['params'])
+                  ->addArgument($config['options']);
 
         $container->getDefinition('orm.user_provider')
                   ->addArgument($config['user_class'])
