@@ -128,3 +128,6 @@ The list of user roles the commands offer you is configurable in the orm.user_ro
     orm:
         user_roles: [ ROLE_USER, ROLE_AWESOME ]
         
+Service Tags
+------------
+You can add subscribers to the EntityManager's event dispatcher by tagging services with `orm.event_subscriber`.
