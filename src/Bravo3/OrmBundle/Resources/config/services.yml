@@ -3,7 +3,7 @@ services:
         class: Bravo3\Orm\Drivers\Redis\RedisDriver
     orm.em:
         class: Bravo3\Orm\Services\EntityManager
-        arguments: [@orm.driver, %kernel.cache_dir%]
+        arguments: [@orm.driver, %kernel.cache_dir%, %hydration_exceptions_as_events%]
     orm.user_provider:
         class: Bravo3\OrmBundle\Services\OrmUserProvider
         arguments: [@orm.em, @security.encoder_factory]
