@@ -15,7 +15,7 @@ class OrmFactory
      * @param string          $cache_dir
      * @return EntityManager
      */
-    public static function createEntityManager(DriverInterface $driver, $cache_dir, $hydration_exceptions_as_events)
+    public static function createEntityManager(DriverInterface $driver, $cache_dir, $hydration_exceptions_as_events = false)
     {
         $mapper = new AnnotationMapper();
         $config = new Configuration();
