@@ -40,7 +40,7 @@ class OrmExtension extends Extension
         $em->addArgument($config['hydration_exceptions_as_events']);
 
         $container->getDefinition('orm.driver')
-                  ->addArgument($config['params'])
+                  ->addArgument($config['redis_hosts'])
                   ->addArgument($config['options']);
 
         $container->getDefinition('orm.user_provider')
