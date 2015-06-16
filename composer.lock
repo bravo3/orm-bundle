@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bravo3/orm",
-            "version": "0.4.0",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bravo3/orm.git",
-                "reference": "233326aa7be5c53dadcba01ae5e4323a65caaa12"
+                "reference": "46142fd84925c6a930f3b59eeb65ef866c8d21ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bravo3/orm/zipball/233326aa7be5c53dadcba01ae5e4323a65caaa12",
-                "reference": "233326aa7be5c53dadcba01ae5e4323a65caaa12",
+                "url": "https://api.github.com/repos/bravo3/orm/zipball/46142fd84925c6a930f3b59eeb65ef866c8d21ea",
+                "reference": "46142fd84925c6a930f3b59eeb65ef866c8d21ea",
                 "shasum": ""
             },
             "require": {
@@ -65,7 +65,7 @@
                 }
             ],
             "description": "NoSQL ORM for databases such as Redis",
-            "time": "2015-06-05 04:53:21"
+            "time": "2015-06-16 04:54:23"
         },
         {
             "name": "doctrine/annotations",
