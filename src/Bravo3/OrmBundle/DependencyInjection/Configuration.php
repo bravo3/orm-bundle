@@ -34,6 +34,10 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('options')
                 ->prototype('variable')->end()
                 ->end()
+            ->arrayNode('sentinels')
+                ->defaultValue([])
+                ->prototype('variable')->end()
+                ->end()
             ->arrayNode('sessions')
                 ->addDefaultsIfNotSet()
                 ->children()
@@ -45,6 +49,9 @@ class Configuration implements ConfigurationInterface
                 ->isRequired()
                 ->requiresAtLeastOneElement()
                 ->prototype('scalar')->end()
+                ->end()
+            ->booleanNode('hydration_exceptions_as_events')
+                ->defaultValue(false)
                 ->end();
 
         return $treeBuilder;
