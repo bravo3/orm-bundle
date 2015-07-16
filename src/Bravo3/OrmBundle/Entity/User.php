@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 /**
  * @Entity()
  */
-class User implements AdvancedUserInterface, \Serializable
+class User implements AdvancedUserInterface
 {
     /**
      * @var string

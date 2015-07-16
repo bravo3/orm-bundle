@@ -34,14 +34,21 @@ abstract class AbstractUserCommand extends ContainerAwareCommand
         $roles_available = $this->getContainer()->get('orm.user_provider')->getAvailableRoles();
         $helper          = $this->getHelper('question');
 
-        if ($default === null) {
-            $default = [$roles_available[0]];
-        }
-
+        // We will convert numeric indices to letters, starting at 'a'
         $default_indices = [];
+        $roles           = [];
+        $chr             = 97;  // lowercase 'a'
+
         foreach ($roles_available as $index => $role) {
+            $asc         = chr($chr++);
+            $roles[$asc] = $role;
+
+            if (!$default) {
+                $default = [$role];
+            }
+
             if (in_array($role, $default)) {
-                $default_indices[] = $index;
+                $default_indices[] = $asc;
             }
         }
 
@@ -49,7 +56,8 @@ abstract class AbstractUserCommand extends ContainerAwareCommand
 
         $roles_question = new ChoiceQuestion(
             'User roles ['.$default_roles.']: ',
-            $roles_available, $default_roles
+            $roles,
+            $default_roles
         );
 
         $roles_question->setMultiselect(true);
