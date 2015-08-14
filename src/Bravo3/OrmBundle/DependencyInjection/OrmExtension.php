@@ -37,8 +37,6 @@ class OrmExtension extends Extension
             $em->setFactory([self::ORM_FACT_CLASS, self::ORM_FACT_METHOD]);
         }
 
-        $em->addArgument($config['hydration_exceptions_as_events']);
-
         $container->getDefinition('orm.driver')
                   ->addArgument($config['params'])
                   ->addArgument($config['options'])
