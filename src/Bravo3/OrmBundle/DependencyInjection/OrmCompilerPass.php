@@ -9,10 +9,17 @@ class OrmCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('orm.em')) {
-            return;
+        // Sub-mappers for the chained mapper
+        if ($container->hasDefinition('orm.mapper.chained')) {
+            $definition  = $container->getDefinition('orm.mapper.chained');
+            $subscribers = $container->findTaggedServiceIds('orm.mapper');
+
+            foreach ($subscribers as $id => $tags) {
+                $definition->addMethodCall('registerMapper', [new Reference($id)]);
+            }
         }
 
+        // Event subscribers on the entity manager
         $definition  = $container->getDefinition('orm.em');
         $subscribers = $container->findTaggedServiceIds('orm.event_subscriber');
 
