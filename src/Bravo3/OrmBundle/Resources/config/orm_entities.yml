@@ -1,0 +1,1 @@
+- { path: src/Bravo3/OrmBundle/Entity, namespace: Bravo3\OrmBundle\Entity }

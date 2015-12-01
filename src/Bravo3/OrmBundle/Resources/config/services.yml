@@ -1,13 +1,13 @@
 services:
     # Core ORM services
-    orm.driver:
-        class: Bravo3\Orm\Drivers\Redis\RedisDriver
     orm.mapper: "@orm.mapper.chained"
     orm.mapper.chained:
         class: Bravo3\Orm\Mappers\Chained\ChainedMapper
     orm.mapper.annotation:
         class: Bravo3\Orm\Mappers\Annotation\AnnotationMapper
         tags: [{ name: orm.mapper }]
+    orm.driver:
+        class: Bravo3\Orm\Drivers\Redis\RedisDriver
     orm.em:
         class: Bravo3\Orm\Services\EntityManager
         arguments: ["@orm.driver", "@orm.mapper", %kernel.cache_dir%]
@@ -30,7 +30,3 @@ services:
         arguments: ["@=service('kernel').getRootDir() ~ '/config/entity_map.yml'"]
         calls:
             - [setInputManager, ["@orm.em"]]
-
-parameters:
-    entity_locations:
-        - ['src/Bravo3/OrmBundle/Entity', 'Bravo3\OrmBundle\Entity']

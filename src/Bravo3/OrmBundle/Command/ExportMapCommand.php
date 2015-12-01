@@ -2,38 +2,31 @@
 namespace Bravo3\OrmBundle\Command;
 
 use Bravo3\Orm\Mappers\Portation\MapWriterInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Rebuild an ORM table
+ * Export metadata for entities to an auxiliary resource
  */
-class ExportMapCommand extends ContainerAwareCommand
+class ExportMapCommand extends AbstractEntityCommand
 {
-
     protected function configure()
     {
         $this->setName('orm:map:export')
              ->setDescription('Export entity mappings')
-             ->addArgument('directory', InputArgument::REQUIRED, 'Directory to scan for entities')
-             ->addArgument('namespace', InputArgument::REQUIRED, 'Base namespace matching input directory')
+             ->addOption('list', 'l', InputOption::VALUE_REQUIRED, 'Path to entity list file', self::ENTITY_LIST)
              ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Output format', 'yaml');
     }
 
     /**
-     * Command executor
-     *
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $locator    = $this->getContainer()->get('orm.entity_locator');
-        $entities   = $locator->locateEntities($input->getArgument('directory'), $input->getArgument('namespace'));
+        $entities   = $this->getEntities($input->getOption('list'));
         $map_writer = $this->getMapperForFormat($input->getOption('format'));
 
         foreach ($entities as $class_name) {
