@@ -1,6 +1,6 @@
-Bravo3 ORM Bundle for Symfony 2
+Bravo3 ORM Bundle for Symfony 3
 ===============================
-This bundle will add the following support to a Symfony 2 application:
+This bundle will add the following support to a Symfony 3 application:
 
 * ORM entity manager service
 * A user provider using the entity manager
@@ -131,3 +131,13 @@ The list of user roles the commands offer you is configurable in the orm.user_ro
 Service Tags
 ------------
 You can add subscribers to the EntityManager's event dispatcher by tagging services with `orm.event_subscriber`.
+
+Map Exports
+-----------
+You can export your default entity mappings to other formats such as YAML using the map exporter:
+
+    bin/console orm:map:export "src/Bravo3/OrmBundle/Entity" "Bravo3\\OrmBundle\\Entity" --format=yaml
+    
+By default, this will create a new map file in `app/config/entity_map.yml`.
+
+> CAUTION: Running this command will overwrite existing map files.

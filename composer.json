@@ -1,7 +1,7 @@
 {
     "name": "bravo3/orm-bundle",
     "type": "library",
-    "description": "Symfony 2 bundle for the ORM entity manager, user provider and session handler",
+    "description": "Symfony 3 bundle for the Bravo3 ORM",
     "license": "MIT",
     "authors": [
         {
@@ -21,11 +21,12 @@
     },
     "require": {
         "php": ">=5.5.0",
-        "bravo3/orm": ">=0.5.5 <1.0.0"
+        "bravo3/orm": "^0.5.7"
     },
     "require-dev": {
-        "phpunit/phpunit": ">=4.7.0",
-        "symfony/symfony": "~2.6"
+        "phpunit/phpunit": ">=5.0",
+        "symfony/symfony": "^3.0",
+        "predis/predis": "^1.0"
     },
     "suggest": {
     },

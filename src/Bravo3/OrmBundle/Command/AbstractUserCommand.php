@@ -34,21 +34,18 @@ abstract class AbstractUserCommand extends ContainerAwareCommand
         $roles_available = $this->getContainer()->get('orm.user_provider')->getAvailableRoles();
         $helper          = $this->getHelper('question');
 
-        // We will convert numeric indices to letters, starting at 'a'
         $default_indices = [];
         $roles           = [];
-        $chr             = 97;  // lowercase 'a'
 
         foreach ($roles_available as $index => $role) {
-            $asc         = chr($chr++);
-            $roles[$asc] = $role;
+            $roles[$index + 1] = $role;
 
             if (!$default) {
                 $default = [$role];
             }
 
             if (in_array($role, $default)) {
-                $default_indices[] = $asc;
+                $default_indices[] = $index + 1;
             }
         }
 
