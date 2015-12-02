@@ -1,11 +1,14 @@
-Bravo3 ORM Bundle for Symfony 2
+Bravo3 ORM Bundle for Symfony 3
 ===============================
-This bundle will add the following support to a Symfony 2 application:
+This bundle will add the following support to a Symfony 3 application:
 
 * ORM entity manager service
 * A user provider using the entity manager
 * Services to help with user authentication (login, logout, etc)
 * A session handler to use the entity manager to store sessions
+
+Getting Started
+===============
 
 Configuration
 -------------
@@ -131,3 +134,39 @@ The list of user roles the commands offer you is configurable in the orm.user_ro
 Service Tags
 ------------
 You can add subscribers to the EntityManager's event dispatcher by tagging services with `orm.event_subscriber`.
+
+Exporters
+=========
+All exporters require a YAML file that lists the locations of your entities, this is a short simple list in the format:
+
+    - { path: src/Bravo3/OrmBundle/Entity, namespace: Bravo3\OrmBundle\Entity }
+    - { path: src/MyStuff/MyBundle/Entity, namespace: MyStuff\MyBundle\Entity }
+    
+Which is all the file needs to contain in order for export commands to locate all of your entities.
+
+Map Exports
+-----------
+You can export your default entity mappings to other formats such as YAML using the map exporter:
+
+    bin/console orm:map:export --list=entities.yml --format=yaml
+    
+`entities.yml` needs to be an entity list in the format above. By default this will create a new map file in 
+`app/config/entity_map.yml` - this path is defined in your service configuration.
+
+> CAUTION: Running this command will overwrite existing map files.
+
+Database Exports
+----------------
+It is possible to import and export databases to and from any driver. This is done using the ORM's `Porter` service,
+however the bundle includes commands to quickly export your entity list to a filesystem driver:
+
+    bin/console orm:export -l entities.yml -o ~/backup.ormdb
+
+This will export your configured database to a single tar file which can be used to import again.
+ 
+    bin/console orm:import -l entities.yml -i ~/backup.ormdb
+    
+Will restore your backup to the primary database. This will overwrite existing entities with the same ID, but will not
+delete content in the primary database that does not exist in the import source.
+
+> CAUTION: The export file is treated as a database, if it already contains data, this data will NOT be purged.

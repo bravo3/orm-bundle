@@ -21,8 +21,6 @@ class PromoteUserCommand extends AbstractUserCommand
     }
 
     /**
-     * Command executor
-     *
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return void

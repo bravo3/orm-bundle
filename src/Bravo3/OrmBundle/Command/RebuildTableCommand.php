@@ -22,8 +22,6 @@ class RebuildTableCommand extends ContainerAwareCommand
     }
 
     /**
-     * Command executor
-     *
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return void

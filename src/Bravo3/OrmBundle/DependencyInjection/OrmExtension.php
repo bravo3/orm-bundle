@@ -31,11 +31,7 @@ class OrmExtension extends Extension
         $loader->load('services.yml');
 
         $em = $container->getDefinition('orm.em');
-        if ((int)Kernel::MINOR_VERSION < 6) {
-            $em->setFactoryClass(self::ORM_FACT_CLASS)->setFactoryMethod(self::ORM_FACT_METHOD);
-        } else {
-            $em->setFactory([self::ORM_FACT_CLASS, self::ORM_FACT_METHOD]);
-        }
+        $em->setFactory([self::ORM_FACT_CLASS, self::ORM_FACT_METHOD]);
 
         $container->getDefinition('orm.driver')
                   ->addArgument($config['params'])
@@ -47,11 +43,6 @@ class OrmExtension extends Extension
                   ->addArgument($config['user_roles']);
 
         $container->getDefinition('orm.security_manager')
-                  ->addArgument(
-                      (int)Kernel::MINOR_VERSION < 6 ? new Reference('security.context') : new Reference(
-                          'security.token_storage'
-                      )
-                  )
                   ->addArgument($config['auth_firewall']);
 
         $container->getDefinition('orm.session_handler')
