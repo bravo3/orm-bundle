@@ -94,6 +94,7 @@ class OrmSessionHandler implements \SessionHandlerInterface
         $session->setId($sessionId);
         $session->setData($data);
         $this->entity_manager->persist($session, $this->ttl)->flush();
+        return true;
     }
 
     /**
@@ -110,6 +111,7 @@ class OrmSessionHandler implements \SessionHandlerInterface
         $session = new $this->session_class();
         $session->setId($sessionId);
         $this->entity_manager->delete($session)->flush();
+        return true;
     }
 
     /**
